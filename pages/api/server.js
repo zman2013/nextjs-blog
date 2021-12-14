@@ -1,10 +1,24 @@
 import * as net from 'net'
+import { startProxy } from './remote-proxy'
+
+const port = 8588
+const host = 'localhost'
 
 export default function handler(req, res) {
-  net.createServer((socket)=>{
-    console.log('new socket')
-  }).listen(8080)
-  res.status(200).json({ name: 'John Doe' })
+    startProxy(message=>{
+      res.status(200).json({port, host, message})
+    })
+    
 }
 
+
+/**
+length 
+{
+  cmd: CONNECT,
+  host,
+  port
+ }
+ 
+ */
 
