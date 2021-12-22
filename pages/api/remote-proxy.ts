@@ -5,12 +5,12 @@ import { Duplex } from 'stream'
 import { getCipher, getDecipher } from './proxy-cipher'
 import { connect } from './connector'
 
-process.on('uncaughtException', e=>{
-  console.log(e)
-})
-process.on('unhandledRejection', e=>{
-  console.error(e)
-})
+// process.on('uncaughtException', e=>{
+//   console.log(e)
+// })
+// process.on('unhandledRejection', e=>{
+//   console.error(e)
+// })
 
 const socketNoMapping = new Map<string, Duplex>()
 let no: string|undefined

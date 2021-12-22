@@ -14,8 +14,9 @@ export function connect(host: string, port: number, cb: (connect: stream.Duplex)
 
     socket.setTimeout(30000)
     socket.on('timeout', () => {
+      console.log('socket timeout')
       socket.end()
-    })
+    }).on('error', ()=>{})
       
     cb(socket)
   }).on('error', error=>{
