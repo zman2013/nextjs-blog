@@ -25,11 +25,15 @@ export function startProxy(cb: (message)=>void){
     cb(`connected to ${proxyHost}:${proxyPort}`)
     const encode = lpstream.encode() as any
     const decode = lpstream.decode() as any
-    const cipher = getCipher()
-    const decipher = getDecipher()
-    communicateWithProxy(cipher, decipher)
-    cipher.pipe(encode).pipe(socket)
-    socket.pipe(decode).pipe(decipher)
+    // const cipher = getCipher()
+    // const decipher = getDecipher()
+    // communicateWithProxy(cipher, decipher)
+    // cipher.pipe(encode).pipe(socket)
+    // socket.pipe(decode).pipe(decipher)
+
+    communicateWithProxy(encode, decode)
+    encode.pipe(socket)
+    socket.pipe(decode)
   })
 }
 
