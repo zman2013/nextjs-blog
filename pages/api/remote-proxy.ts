@@ -12,17 +12,15 @@ process.on('unhandledRejection', e=>{
   console.error(e)
 })
 
-const proxyHost = 'xiu66.site'
-const proxyPort = 11025
-
 const socketNoMapping = new Map<string, Duplex>()
 let no: string|undefined
 let cmd: string|undefined
 
 
-export function startProxy(cb: (message)=>void){
+export function startProxy(proxyHost: string, proxyPort: number, cb: (message)=>void){
   connect(proxyHost, proxyPort, (socket)=>{
     cb(`connected to ${proxyHost}:${proxyPort}`)
+
     const encode = lpstream.encode() as any
     const decode = lpstream.decode() as any
     // const cipher = getCipher()

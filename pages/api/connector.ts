@@ -9,9 +9,15 @@ export function connect(host: string, port: number, cb: (connect: stream.Duplex)
   const re = reconnect({
     initialDelay: 1e3,
     maxDelay: 30e3
-  }).on('connection', (connect: any)=>{
+  }).on('connection', (socket: any)=>{
     console.log('connected to', {host, port})
-    cb(connect)
+
+    socket.setTimeout(30000)
+    socket.on('timeout', () => {
+      socket.end()
+    })
+      
+    cb(socket)
   }).on('error', error=>{
     console.error('socket to proxy error', error)
   }).connect({port, host})
